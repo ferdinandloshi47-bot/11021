@@ -37,12 +37,7 @@ td{padding:5px 8px;border-bottom:1px solid #f0f2f5;white-space:nowrap}
 td.r{text-align:right;font-variant-numeric:tabular-nums}
 tr:hover td{background:#f8f9ff}
 
-.tier{display:inline-block;min-width:22px;text-align:center;font-weight:700;font-size:10px;padding:1px 4px;border-radius:3px}
-.tA{background:#ffeef0;color:#e53e3e}
-.tB{background:#fff5e6;color:#dd6b20}
-.tD{background:#e6fffa;color:#00b894}
-.tE{background:#f0e6ff;color:#805ad5}
-.tX{background:#edf2f7;color:#a0aec0}
+
 
 .product-img{width:60px;height:60px;object-fit:cover;border-radius:4px;border:1px solid #e2e8f0}
 
@@ -77,8 +72,7 @@ var i18n = {
     footer: '香水稀缺爆款推荐 · US半托管',
     brand_dim: '品牌维度：稀缺爆款品牌推荐',
     item_dim: '单品维度：Amazon 热销爆款推荐清单',
-    rank: '排名', brand: '品牌', tier: 'Tier',
-    product_title: '商品标题', spec: '规格',
+    rank: '排名', brand: '品牌',     product_title: '商品标题', spec: '规格',
     amz_monthly_sales: 'Amazon 月销', amz_monthly_rev: 'Amazon 销额',
     price: '价格', image: '图片'
   },
@@ -88,8 +82,7 @@ var i18n = {
     footer: 'Scarce Hot Product Recommendations · US Semi-Managed',
     brand_dim: 'Brand Level: Scarce Hot Brand Recommendations',
     item_dim: 'Item Level: Amazon Hot Product Recommendations',
-    rank: 'Rank', brand: 'Brand', tier: 'Tier',
-    product_title: 'Product Title', spec: 'Spec',
+    rank: 'Rank', brand: 'Brand',     product_title: 'Product Title', spec: 'Spec',
     amz_monthly_sales: 'Amazon Monthly Sales', amz_monthly_rev: 'Amazon Monthly Rev',
     price: 'Price', image: 'Image'
   }
@@ -137,14 +130,14 @@ function render() {
 
   html += '<div class="card"><h3>'+t('brand_dim')+'</h3>';
   html += '<div class="tw"><table><thead><tr>';
-  html += '<th>'+t('rank')+'</th><th>'+t('brand')+'</th><th>'+t('tier')+'</th><th class="r">'+(curLang==='zh'?'推荐单品数':'Recommended Items')+'</th>';
+  html += '<th>'+t('rank')+'</th><th>'+t('brand')+'</th><th class="r">'+(curLang==='zh'?'推荐单品数':'Recommended Items')+'</th>';
   html += '</tr></thead><tbody>';
 
   gapBrands.forEach(function(b,i){
     html += '<tr>';
     html += '<td>'+(i+1)+'</td>';
     html += '<td><strong>'+escHtml(b.bn)+'</strong></td>';
-    html += '<td><span class="tier t'+(b.tier||'X')[0]+'">'+escHtml(b.tier)+'</span></td>';
+    
     html += '<td class="r">'+b.count+'</td>';
     html += '</tr>';
   });
@@ -153,14 +146,14 @@ function render() {
   // Item dimension table
   html += '<div class="card"><h3>'+t('item_dim')+'（'+totalCount+'）</h3>';
   html += '<div class="tw"><table><thead><tr>';
-  html += '<th>'+t('brand')+'</th><th>'+t('tier')+'</th><th>'+t('product_title')+'</th><th>'+t('spec')+'</th><th class="r">'+t('amz_monthly_sales')+'</th><th class="r">'+t('amz_monthly_rev')+'</th><th class="r">'+t('price')+'</th><th>'+t('image')+'</th>';
+  html += '<th>'+t('brand')+'</th><th>'+t('product_title')+'</th><th>'+t('spec')+'</th><th class="r">'+t('amz_monthly_sales')+'</th><th class="r">'+t('amz_monthly_rev')+'</th><th class="r">'+t('price')+'</th><th>'+t('image')+'</th>';
   html += '</tr></thead><tbody>';
 
   var topItems = notIntro.slice().sort(function(a,b){return (b.ms||0)-(a.ms||0)}).slice(0,100);
   topItems.forEach(function(item){
     html += '<tr>';
     html += '<td><strong>'+escHtml(item.bn)+'</strong></td>';
-    html += '<td><span class="tier t'+(item.t||'X')[0]+'">'+escHtml(item.t)+'</span></td>';
+    
     html += '<td style="max-width:350px;overflow:hidden;text-overflow:ellipsis" title="'+escHtml(item.title)+'">';
     if(item.asin){
       html += '<a href="https://www.amazon.com/dp/'+escHtml(item.asin)+'" target="_blank" style="color:#667eea;text-decoration:none">'+escHtml(item.title||'-')+' ↗</a>';
